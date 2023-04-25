@@ -10,21 +10,28 @@ import androidx.compose.material.OutlinedTextField
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.MutableState
+import androidx.compose.ui.ExperimentalComposeUiApi
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.focus.FocusManager
+import androidx.compose.ui.focus.onFocusChanged
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalFocusManager
+import androidx.compose.ui.platform.LocalSoftwareKeyboardController
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 
+@OptIn(ExperimentalComposeUiApi::class)
 @Composable
 fun CustomTextField(
     inputText: MutableState<String>,
     labelText: String,
     placeholderText: String,
-    imeAction: ImeAction = ImeAction.Next
+    imeAction: ImeAction = ImeAction.Next,
+    focusManager: FocusManager
 ) {
+
 
     Column {
         Text(
@@ -34,8 +41,6 @@ fun CustomTextField(
             fontSize = 12.sp,
             fontWeight = FontWeight.Bold
         )
-
-        val focusManager = LocalFocusManager.current
 
         OutlinedTextField(
             value = inputText.value,

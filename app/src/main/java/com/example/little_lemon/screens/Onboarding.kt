@@ -5,6 +5,9 @@ import android.widget.Toast
 import androidx.activity.ComponentActivity
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
+import androidx.compose.foundation.clickable
+import androidx.compose.foundation.gestures.detectTapGestures
+import androidx.compose.foundation.interaction.MutableInteractionSource
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.*
@@ -12,7 +15,9 @@ import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.input.pointer.pointerInput
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.platform.LocalFocusManager
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.input.ImeAction
@@ -29,8 +34,16 @@ import com.example.little_lemon.ui.theme.LittleLemonColor
 fun Onboarding(navController: NavHostController) {
     val context = LocalContext.current
     val sharedPreferences = context.getSharedPreferences("LittleLemon", ComponentActivity.MODE_PRIVATE)
-
-    Column {
+    val focusManager = LocalFocusManager.current
+    Column(
+        modifier = Modifier.pointerInput(Unit) {
+            detectTapGestures(
+                onTap = {
+                    focusManager.clearFocus()
+                }
+            )
+        }
+    ) {
         Image(
             painter = painterResource(id = R.drawable.little_lemon_logo),
             contentDescription = "logo",
@@ -68,18 +81,18 @@ fun Onboarding(navController: NavHostController) {
             var firstNameInput = remember {
                 mutableStateOf("")
             }
-            CustomTextField(inputText = firstNameInput, labelText = "First name", placeholderText = "Tilly")
+            CustomTextField(inputText = firstNameInput, labelText = "First name", placeholderText = "Tilly", focusManager = focusManager)
 
 
             var lastNameInput = remember {
                 mutableStateOf("")
             }
-            CustomTextField(inputText = lastNameInput, labelText = "Last name", placeholderText = "Doe")
+            CustomTextField(inputText = lastNameInput, labelText = "Last name", placeholderText = "Doe", focusManager = focusManager)
 
             var emailInput = remember {
                 mutableStateOf("")
             }
-            CustomTextField(inputText = emailInput, labelText = "Email", placeholderText = "tillydoe@example.com", imeAction = ImeAction.Done)
+            CustomTextField(inputText = emailInput, labelText = "Email", placeholderText = "tillydoe@example.com", imeAction = ImeAction.Done, focusManager = focusManager)
 
            var informText by remember {
                mutableStateOf("")
