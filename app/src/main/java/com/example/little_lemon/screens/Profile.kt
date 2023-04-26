@@ -65,7 +65,7 @@ fun Profile(navController: NavHostController) {
             modifier = Modifier
                 .fillMaxWidth()
                 .padding(bottom = 40.dp),
-            enabled = false,
+            readOnly = true,
             shape = RoundedCornerShape(8.dp)
         )
 
@@ -82,7 +82,7 @@ fun Profile(navController: NavHostController) {
             modifier = Modifier
                 .fillMaxWidth()
                 .padding(bottom = 40.dp),
-            enabled = false,
+            readOnly = true,
             shape = RoundedCornerShape(8.dp)
         )
 
@@ -97,7 +97,7 @@ fun Profile(navController: NavHostController) {
             value = sharedPreferences.getString("email", "")!!,
             onValueChange = {},
             modifier = Modifier.fillMaxWidth(),
-            enabled = false,
+            readOnly = true,
             shape = RoundedCornerShape(8.dp)
         )
 
